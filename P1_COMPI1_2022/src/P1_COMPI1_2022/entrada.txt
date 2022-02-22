@@ -1,1 +1,7 @@
-hola, como , le, va
+CONJ: Cruz_12 -> .ab ;
+//COMENTARIO
+<!estilo de comentario!>
+Dos_123 -> ;
+%%
+%%
+A123 : "comentarios";

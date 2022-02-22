@@ -3,7 +3,6 @@ package analizadores;
 import java_cup.runtime.Symbol;
 import java.util.LinkedList;
 
-//@author moi
 
 parser code
 {:
@@ -45,16 +44,31 @@ parser code
 :}
 
 
-terminal id;
-terminal coma;
+terminal pComa,Conj,dPuntos,ID,Flecha,Notacion,DosPorcentajes,Cadena;
 
-non terminal INICIO,E;
+non terminal INICIO,CONJUNTOS,EXPRESIONES,PORPOR,LEXEMA;
 
 start with INICIO;
 
-INICIO::= E {:System.out.println("Fin de analisis de entrada");:}
+INICIO ::= 
+    CONJUNTOS EXPRESIONES PORPOR LEXEMA 
+    {:System.out.println("Fin de analisis de entrada");:}
 ;
 
-E::= E coma id
-| id
+CONJUNTOS ::= 
+    Conj dPuntos ID Flecha Notacion pComa
+    |Conj dPuntos ID Flecha Notacion pComa CONJUNTOS
+;
+EXPRESIONES ::=
+    ID Flecha pComa |
+    ID Flecha pComa EXPRESIONES
+;
+PORPOR ::=
+    DosPorcentajes |
+    DosPorcentajes PORPOR
+;
+
+LEXEMA ::=
+    ID dPuntos Cadena pComa |
+    ID dPuntos Cadena pComa LEXEMA
 ;
