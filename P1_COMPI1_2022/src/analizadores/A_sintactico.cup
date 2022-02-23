@@ -45,13 +45,13 @@ parser code
 :}
 
 
-terminal parentesisa,conj,dpuntos,id,flecha,notacion,pcoma,dosporcentajes;
+terminal parentesisa,conj,dpuntos,id,flecha,notacion,pcoma,dosporcentajes,cadena;
 
-non terminal INICIO,CONJUNTO,EXPRESION,PORPOR;
+non terminal INICIO,CONJUNTO,EXPRESION,PORPOR,LEXEMA;
 
 start with INICIO;
 
-INICIO::=parentesisa CONJUNTO EXPRESION PORPOR{:System.out.println("Fin de analisis de entrada");:}
+INICIO::=parentesisa CONJUNTO EXPRESION PORPOR LEXEMA{:System.out.println("Fin de analisis de entrada");:}
 ;
 
 CONJUNTO::=
@@ -65,4 +65,8 @@ EXPRESION::=
 PORPOR::=
     dosporcentajes
     |dosporcentajes PORPOR
+;
+LEXEMA::=
+    id dpuntos cadena pcoma
+    |id dpuntos cadena pcoma LEXEMA
 ;

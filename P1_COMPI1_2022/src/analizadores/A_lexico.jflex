@@ -38,11 +38,42 @@ NT6={NT6a}"n"|{NT6a}"'"|{NT6a}"\""
 idAux={letras}|{numeros}|[_]//
 ids={letras} {idAux}*
 
+comentarioraya=["//"][^"\n"]["\n"]
+cadenas=[\"][^\"\n]*[\"]|[\'][^\"\n]*[\']
+
+%state ESTADOcOMENTARIOuNO ESTADOcOMENTARIOdOS
 %%
+<YYINITIAL> ("//")  {
+    System.out.println("Inicio del estado comentario Barras");
+    yybegin(ESTADOcOMENTARIOuNO);    
+}
+<ESTADOcOMENTARIOuNO>   [^"\n"]   {
+    /*Ignore*/
+}
+<YYINITIAL> ("<!")  {
+    System.out.println("Inicio del estado comentario FleInt");
+    yybegin(ESTADOcOMENTARIOdOS);
+}
+<ESTADOcOMENTARIOdOS>   [^"!>"]   {
+    /*Ignore*/
+}
+<ESTADOcOMENTARIOdOS>   ("!>")  {
+    System.out.println("Fin del estado comentario FleInt");
+    yybegin(YYINITIAL); 
+}
+
+
+<ESTADOcOMENTARIOuNO> ("\n")  {
+    System.out.println("Fin del estado comentario Barras");
+    yybegin(YYINITIAL); 
+}
+
+
 <YYINITIAL> ";"     {
                     System.out.println("Reconocio token:<pcoma> lexema:"+yytext());
                     return new Symbol(Simbolos.pcoma, yycolumn, yyline, yytext());
                     }
+
 <YYINITIAL> ("{")  {
     System.out.println("Reconocio token:<parentesisa> lexema:"+yytext());
     return new Symbol(Simbolos.parentesisa, yycolumn, yyline, yytext());
@@ -71,6 +102,12 @@ ids={letras} {idAux}*
                     System.out.println("Reconocio token:<dosporcentajes> lexema:"+yytext());
                     return new Symbol(Simbolos.dosporcentajes, yycolumn, yyline, yytext());
                     }
+<YYINITIAL> {cadenas}    {
+                    System.out.println("Reconocio token:<cadena> lexema:"+yytext());
+                    return new Symbol(Simbolos.cadena, yycolumn, yyline, yytext());
+                }
+                
+
 [ \t\r\n\f]         {
                     /* Espacios en blanco, se ignoran */    
                     }

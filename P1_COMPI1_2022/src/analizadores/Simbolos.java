@@ -11,6 +11,7 @@ public class Simbolos {
   public static final int id = 5;
   public static final int notacion = 7;
   public static final int dpuntos = 4;
+  public static final int cadena = 10;
   public static final int pcoma = 8;
   public static final int conj = 3;
   public static final int EOF = 0;
@@ -28,7 +29,8 @@ public class Simbolos {
   "flecha",
   "notacion",
   "pcoma",
-  "dosporcentajes"
+  "dosporcentajes",
+  "cadena"
   };
 }
 
