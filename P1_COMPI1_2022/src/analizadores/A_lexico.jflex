@@ -67,6 +67,10 @@ ids={letras} {idAux}*
                     System.out.println("Reconocio token:<notacion> lexema:"+yytext());
                     return new Symbol(Simbolos.notacion, yycolumn, yyline, yytext());
                     }
+<YYINITIAL> ("%%")   {
+                    System.out.println("Reconocio token:<dosporcentajes> lexema:"+yytext());
+                    return new Symbol(Simbolos.dosporcentajes, yycolumn, yyline, yytext());
+                    }
 [ \t\r\n\f]         {
                     /* Espacios en blanco, se ignoran */    
                     }

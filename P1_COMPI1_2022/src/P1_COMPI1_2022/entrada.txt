@@ -5,3 +5,12 @@ CONJ: id_normal3 -> a-k;
 CONJ: id_normal4 -> 8,7,6,7;
 CONJ: id_normal5 -> a,b,e,t,f;
 CONJ: id_normal6 -> 1515,11555;
+
+id_normal1 -> ;
+id_normal2 -> ;
+id_normal3 -> ;
+id_normal4 -> ;
+
+%%
+%%%%
+%%
