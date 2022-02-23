@@ -3,6 +3,7 @@ package analizadores;
 import java_cup.runtime.Symbol;
 import java.util.LinkedList;
 
+//@author moi
 
 parser code
 {:
@@ -41,51 +42,20 @@ parser code
         errores.add(tmp);
      
     }
-:};
+:}
 
 
-terminal pComa,ParentesisA,Conj,dPuntos,Id,Flecha,Notacion,Or,Punto,Por,Interrogacion,Mas,DosPorcentajes,Cadena,ParentesisB;
+terminal parentesisa,conj,dpuntos,id,flecha,notacion,pcoma;
 
-non terminal INICIO,CONJUNTOS,PORPOR,LEXEMA,EXPRESIONa,EXPRESIONb,EXPRESION,B,AYUDA;
+non terminal INICIO,CONJUNTO,EXPRESION;
 
 start with INICIO;
 
-INICIO ::= 
-    CONJUNTOS
-    {:System.out.println("Fin de analisis de entrada");:}
+INICIO::=parentesisa CONJUNTO {:System.out.println("Fin de analisis de entrada");:}
 ;
 
-AYUDA ::=
-    Conj dPuntos
-;
-
-CONJUNTOS ::= 
-    Conj dPuntos Id Flecha Notacion pComa
-    |Conj dPuntos Id Flecha Notacion pComa CONJUNTOS
-;
-
-PORPOR ::=
-    DosPorcentajes
-    |DosPorcentajes PORPOR
-;
-
-EXPRESIONa::=
-    Cadena
-    |ParentesisA Id ParentesisB
-;
-EXPRESIONb::=
-    EXPRESIONa
-    |EXPRESIONa Mas
-    |EXPRESIONa Interrogacion
-    |EXPRESIONa Por
+CONJUNTO::=
+   conj dpuntos id flecha notacion pcoma
+   |conj dpuntos id flecha notacion pcoma CONJUNTO
 ;
 EXPRESION::=
-    Or B
-    |Punto B
-    |EXPRESIONb B
-    |EXPRESIONb
-;
-LEXEMA ::=
-    Id dPuntos Cadena EXPRESION pComa 
-    |Id dPuntos Cadena EXPRESION pComa LEXEMA
-;

@@ -1,1 +1,7 @@
-hola como le va;
+{
+CONJ: id_normal1 -> A,B,C,D,E;
+CONJ: id_normal2 -> 0-9;
+CONJ: id_normal3 -> a-k;
+CONJ: id_normal4 -> 8,7,6,7;
+CONJ: id_normal5 -> a,b,e,t,f;
+CONJ: id_normal6 -> 1515,11555;
