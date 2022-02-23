@@ -41,34 +41,51 @@ parser code
         errores.add(tmp);
      
     }
-:}
+:};
 
 
-terminal pComa,Conj,dPuntos,ID,Flecha,Notacion,DosPorcentajes,Cadena;
+terminal pComa,ParentesisA,Conj,dPuntos,Id,Flecha,Notacion,Or,Punto,Por,Interrogacion,Mas,DosPorcentajes,Cadena,ParentesisB;
 
-non terminal INICIO,CONJUNTOS,EXPRESIONES,PORPOR,LEXEMA;
+non terminal INICIO,CONJUNTOS,PORPOR,LEXEMA,EXPRESIONa,EXPRESIONb,EXPRESION,B,AYUDA;
 
 start with INICIO;
 
 INICIO ::= 
-    CONJUNTOS EXPRESIONES PORPOR LEXEMA 
+    CONJUNTOS
     {:System.out.println("Fin de analisis de entrada");:}
 ;
 
-CONJUNTOS ::= 
-    Conj dPuntos ID Flecha Notacion pComa
-    |Conj dPuntos ID Flecha Notacion pComa CONJUNTOS
-;
-EXPRESIONES ::=
-    ID Flecha pComa |
-    ID Flecha pComa EXPRESIONES
-;
-PORPOR ::=
-    DosPorcentajes |
-    DosPorcentajes PORPOR
+AYUDA ::=
+    Conj dPuntos
 ;
 
+CONJUNTOS ::= 
+    Conj dPuntos Id Flecha Notacion pComa
+    |Conj dPuntos Id Flecha Notacion pComa CONJUNTOS
+;
+
+PORPOR ::=
+    DosPorcentajes
+    |DosPorcentajes PORPOR
+;
+
+EXPRESIONa::=
+    Cadena
+    |ParentesisA Id ParentesisB
+;
+EXPRESIONb::=
+    EXPRESIONa
+    |EXPRESIONa Mas
+    |EXPRESIONa Interrogacion
+    |EXPRESIONa Por
+;
+EXPRESION::=
+    Or B
+    |Punto B
+    |EXPRESIONb B
+    |EXPRESIONb
+;
 LEXEMA ::=
-    ID dPuntos Cadena pComa |
-    ID dPuntos Cadena pComa LEXEMA
+    Id dPuntos Cadena EXPRESION pComa 
+    |Id dPuntos Cadena EXPRESION pComa LEXEMA
 ;

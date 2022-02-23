@@ -8,27 +8,41 @@ package analizadores;
 /** CUP generated class containing symbol constants. */
 public class Simbolos {
   /* terminals */
-  public static final int DosPorcentajes = 8;
-  public static final int Cadena = 9;
+  public static final int Punto = 10;
+  public static final int Id = 6;
+  public static final int DosPorcentajes = 14;
+  public static final int Cadena = 15;
   public static final int EOF = 0;
-  public static final int dPuntos = 4;
-  public static final int ID = 5;
+  public static final int dPuntos = 5;
+  public static final int Or = 9;
+  public static final int ParentesisB = 16;
+  public static final int ParentesisA = 3;
   public static final int error = 1;
-  public static final int Flecha = 6;
-  public static final int Conj = 3;
+  public static final int Flecha = 7;
+  public static final int Interrogacion = 12;
+  public static final int Conj = 4;
   public static final int pComa = 2;
-  public static final int Notacion = 7;
+  public static final int Por = 11;
+  public static final int Notacion = 8;
+  public static final int Mas = 13;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
   "pComa",
+  "ParentesisA",
   "Conj",
   "dPuntos",
-  "ID",
+  "Id",
   "Flecha",
   "Notacion",
+  "Or",
+  "Punto",
+  "Por",
+  "Interrogacion",
+  "Mas",
   "DosPorcentajes",
-  "Cadena"
+  "Cadena",
+  "ParentesisB"
   };
 }
 

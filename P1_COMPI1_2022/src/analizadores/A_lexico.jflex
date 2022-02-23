@@ -44,7 +44,13 @@ IDaux={L}|{N}|[_]//
 ID={L}{IDaux}*//[a-zA-Z][(a-zA-Z)|(0-9)|_]*
 
 CADENA=[\"][^\"\n]*[\"]|[\'][^\"\n]*[\']
-//Dp=[:]
+/*EXPRESIONa={CADENA}|"{"[ID]"}"
+EXPRESION={EXPRESIONa}|{EXPRESIONa}"+"|{EXPRESIONa}"?"|{EXPRESIONa}"*"*/
+OR="|"
+PUNTO=[.]
+POR=["*"]
+INTERROGACION=["?"]
+MAS=["+"]
 
 %state ESTADOcOMENTARIOuNO ESTADOcOMENTARIOdOS
 %%
@@ -57,17 +63,21 @@ CADENA=[\"][^\"\n]*[\"]|[\'][^\"\n]*[\']
     System.out.println("Inicio del estado comentario Barras");
     yybegin(ESTADOcOMENTARIOuNO);    
 }
-<ESTADOcOMENTARIOuNO>   ^"\n"   { }
-<ESTADOcOMENTARIOuNO> "\n"  {
+<ESTADOcOMENTARIOuNO>   [^"\n"]   {
+    /*Ignore*/
+}
+<ESTADOcOMENTARIOuNO> ("\n")  {
     System.out.println("Fin del estado comentario Barras");
     yybegin(YYINITIAL); 
 }
 //ESTADO SALTO COMENTARIO DOS
 <YYINITIAL> ("<!")  {
     System.out.println("Inicio del estado comentario FleInt");
-    yybegin(ESTADOcOMENTARIOdOS);    
+    yybegin(ESTADOcOMENTARIOdOS);
 }
-<ESTADOcOMENTARIOdOS>   ^"!>"   {}
+<ESTADOcOMENTARIOdOS>   [^"!>"]   {
+    /*Ignore*/
+}
 <ESTADOcOMENTARIOdOS>   ("!>")  {
     System.out.println("Fin del estado comentario FleInt");
     yybegin(YYINITIAL); 
@@ -84,8 +94,11 @@ CADENA=[\"][^\"\n]*[\"]|[\'][^\"\n]*[\']
     System.out.println("Reconocio token:<cadena>");
     return new Symbol(Simbolos.Cadena, yycolumn, yyline, help+yytext());   
 }*/
-//NO HACER NADA           
-[\t\r\n\f] {/*Ignore*/}
+//PARENTESIS{
+<YYINITIAL> ("{")  {
+    System.out.println("Reconocio token:<ParentesisA> lexema:"+yytext());
+    return new Symbol(Simbolos.ParentesisA, yycolumn, yyline, yytext());
+}
 //CONJUNTOS
 <YYINITIAL> ("CONJ")  {
     System.out.println("Reconocio token:<Conj> lexema:"+yytext());
@@ -98,8 +111,8 @@ CADENA=[\"][^\"\n]*[\"]|[\'][^\"\n]*[\']
 }
 //ID
 <YYINITIAL> {ID}    {
-    System.out.println("Reconocio token:<ID> lexema:"+yytext());
-    return new Symbol(Simbolos.ID, yycolumn, yyline, yytext());
+    System.out.println("Reconocio token:<Id> lexema:"+yytext());
+    return new Symbol(Simbolos.Id, yycolumn, yyline, yytext());
 }
 //FLECHITA
 <YYINITIAL> ("->")    {
@@ -112,7 +125,35 @@ CADENA=[\"][^\"\n]*[\"]|[\'][^\"\n]*[\']
     return new Symbol(Simbolos.Notacion, yycolumn, yyline, yytext());
 }
 //EXPRESIONES
-
+/*<YYINITIAL> {EXPRESION}    {
+    System.out.println("Reconocio token:<Expresion> lexema:"+yytext());
+    return new Symbol(Simbolos.Expresion, yycolumn, yyline, yytext());
+}*/
+//OR
+<YYINITIAL> {OR}    {
+    System.out.println("Reconocio token:<Or> lexema:"+yytext());
+    return new Symbol(Simbolos.Or, yycolumn, yyline, yytext());
+}
+//PUNTO
+<YYINITIAL> {PUNTO}    {
+    System.out.println("Reconocio token:<Punto> lexema:"+yytext());
+    return new Symbol(Simbolos.Punto, yycolumn, yyline, yytext());
+}
+//POR
+<YYINITIAL> {POR}    {
+    System.out.println("Reconocio token:<Por> lexema:"+yytext());
+    return new Symbol(Simbolos.Por, yycolumn, yyline, yytext());
+}
+//INTERROGACION
+<YYINITIAL> {INTERROGACION}    {
+    System.out.println("Reconocio token:<Interrogacion> lexema:"+yytext());
+    return new Symbol(Simbolos.Interrogacion, yycolumn, yyline, yytext());
+}
+//MAS
+<YYINITIAL> {MAS}    {
+    System.out.println("Reconocio token:<Mas> lexema:"+yytext());
+    return new Symbol(Simbolos.Mas, yycolumn, yyline, yytext());
+}
 //PORCENTAJES
 <YYINITIAL> ("%%")    {
     System.out.println("Reconocio token:<DosPorcentajes> lexema:"+yytext());
@@ -123,13 +164,18 @@ CADENA=[\"][^\"\n]*[\"]|[\'][^\"\n]*[\']
     System.out.println("Reconocio token:<Cadena> lexema:"+yytext());
     return new Symbol(Simbolos.Cadena, yycolumn, yyline, yytext());
 }
+//PARENTESIS}
+<YYINITIAL> ("}")  {
+    System.out.println("Reconocio token:<ParentesisB> lexema:"+yytext());
+    return new Symbol(Simbolos.ParentesisB, yycolumn, yyline, yytext());
+}
+//NO HACER NADA           
+[ \t\r\n\f] {/*Ignore*/}
 //ERRORES
 . {
     TError tmp= new TError("Lexico", yytext(),"Caracter no encontrado", yyline, yycolumn );
     errores.add(tmp);                    
-   }
-
-
+}
 /*letra = [a-zA-Z]
 id = {letra}+
 <YYINITIAL> ","     {

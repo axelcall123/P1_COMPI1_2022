@@ -1,7 +1,5 @@
-CONJ: Cruz_12 -> .ab ;
-//COMENTARIO
-<!estilo de comentario!>
-Dos_123 -> ;
-%%
-%%
-A123 : "comentarios";
+CONJ: toke_12 -> |ab;
+//COMENTARIOS PERRRONES
+<!HOLIS CMOM LEMK SLK JEKLSJ LK;!>
+CONJ: toke_12 -> 0,2,3,4;
+CONJ: toke_12 -> a,g,h;
