@@ -6,10 +6,10 @@ CONJ: id_normal4 -> 8,7,6,7;<!comentario perrones no se que mas!>
 CONJ: id_normal5 -> a,b,e,t,f;
 CONJ: id_normal6 -> 1515,11555;
 //UN COMENTARIO AQUI
-id_normal1 -> ;
-id_normal2 -> ;
-id_normal3 -> ;
-id_normal4 -> ;
+id_normal1 -> {ID_123}|"hola";
+id_normal2 -> "123"*;
+id_normal3 -> "45687"+|{hola_mundo} ;
+id_normal4 -> {xd}{lol}.{xd}?;
 
 %%
 %%%%
@@ -17,3 +17,4 @@ id_normal4 -> ;
 //OTRO COMENTARIO ACA
 id_normal11:"HOLA OCMO LE VA";
 id_normal12:"nel pastel";
+}

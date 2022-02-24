@@ -45,27 +45,56 @@ parser code
 :}
 
 
-terminal parentesisa,conj,dpuntos,id,flecha,notacion,pcoma,dosporcentajes,cadena;
+terminal parentesisa,conj,dpuntos,id,flecha,notacion,por,interrogacion,mas,punto,or,expresion,pcoma,dosporcentajes,cadena,parentesisb;
 
-non terminal INICIO,CONJUNTO,EXPRESION,PORPOR,LEXEMA;
+non terminal INICIO,CONJUNTO,EXPRESION,PORPOR,LEXEMA, S,A,B,C;
 
 start with INICIO;
 
-INICIO::=parentesisa CONJUNTO EXPRESION PORPOR LEXEMA{:System.out.println("Fin de analisis de entrada");:}
+INICIO::=
+    parentesisa CONJUNTO EXPRESION PORPOR LEXEMA parentesisb
+    {:System.out.println("Fin de analisis de entrada");:}
 ;
 
 CONJUNTO::=
    conj dpuntos id flecha notacion pcoma
    |conj dpuntos id flecha notacion pcoma CONJUNTO
 ;
+C::= 
+    expresion
+    |expresion por
+    |expresion interrogacion
+    |expresion mas
+
+    |cadena
+    |cadena por
+    |cadena interrogacion
+    |cadena mas
+    
+;
+B::=
+    C
+    |C A
+;
+A::=
+    C
+    |C A
+    |or B
+    |punto B
+;
+S::=
+    C
+    |C A
+;
 EXPRESION::=
-    id flecha pcoma
-    |id flecha pcoma EXPRESION
+    id flecha S pcoma
+    |id flecha S pcoma EXPRESION
 ;
 PORPOR::=
     dosporcentajes
     |dosporcentajes PORPOR
 ;
+
 LEXEMA::=
     id dpuntos cadena pcoma
     |id dpuntos cadena pcoma LEXEMA

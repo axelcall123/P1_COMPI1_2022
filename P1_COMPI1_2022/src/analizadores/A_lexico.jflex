@@ -38,8 +38,9 @@ NT6={NT6a}"n"|{NT6a}"'"|{NT6a}"\""
 idAux={letras}|{numeros}|[_]//
 ids={letras} {idAux}*
 
-comentarioraya=["//"][^"\n"]["\n"]
 cadenas=[\"][^\"\n]*[\"]|[\'][^\"\n]*[\']
+
+expreiones="{"{ids}"}"
 
 %state ESTADOcOMENTARIOuNO ESTADOcOMENTARIOdOS
 %%
@@ -98,6 +99,30 @@ cadenas=[\"][^\"\n]*[\"]|[\'][^\"\n]*[\']
                     System.out.println("Reconocio token:<notacion> lexema:"+yytext());
                     return new Symbol(Simbolos.notacion, yycolumn, yyline, yytext());
                     }
+<YYINITIAL> ("*")  {
+                    System.out.println("Reconocio token:<por> lexema:"+yytext());
+                    return new Symbol(Simbolos.por, yycolumn, yyline, yytext());
+                    }
+<YYINITIAL> ("?")  {
+                    System.out.println("Reconocio token:<interrogacion> lexema:"+yytext());
+                    return new Symbol(Simbolos.interrogacion, yycolumn, yyline, yytext());
+                    }
+<YYINITIAL> ("+")  {
+                    System.out.println("Reconocio token:<mas> lexema:"+yytext());
+                    return new Symbol(Simbolos.mas, yycolumn, yyline, yytext());
+                    }
+<YYINITIAL> (".")  {
+                    System.out.println("Reconocio token:<punto> lexema:"+yytext());
+                    return new Symbol(Simbolos.punto, yycolumn, yyline, yytext());
+                    }   
+<YYINITIAL> ("|")  {
+                    System.out.println("Reconocio token:<or> lexema:"+yytext());
+                    return new Symbol(Simbolos.or, yycolumn, yyline, yytext());
+                    }                                                             
+<YYINITIAL> {expreiones}  {
+                    System.out.println("Reconocio token:<expresion> lexema:"+yytext());
+                    return new Symbol(Simbolos.expresion, yycolumn, yyline, yytext());
+                    }
 <YYINITIAL> ("%%")   {
                     System.out.println("Reconocio token:<dosporcentajes> lexema:"+yytext());
                     return new Symbol(Simbolos.dosporcentajes, yycolumn, yyline, yytext());
@@ -106,7 +131,10 @@ cadenas=[\"][^\"\n]*[\"]|[\'][^\"\n]*[\']
                     System.out.println("Reconocio token:<cadena> lexema:"+yytext());
                     return new Symbol(Simbolos.cadena, yycolumn, yyline, yytext());
                 }
-                
+<YYINITIAL> ("}")  {
+    System.out.println("Reconocio token:<parentesisb> lexema:"+yytext());
+    return new Symbol(Simbolos.parentesisb, yycolumn, yyline, yytext());
+}                
 
 [ \t\r\n\f]         {
                     /* Espacios en blanco, se ignoran */    
