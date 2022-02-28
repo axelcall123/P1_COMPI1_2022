@@ -1,5 +1,4 @@
 package analizadores;
-
 public class TError {
 
     String tipo, lexema, descripcion;

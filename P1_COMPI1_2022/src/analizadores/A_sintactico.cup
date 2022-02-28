@@ -7,8 +7,10 @@ import java.util.LinkedList;
 
 parser code
 {:
-    public static LinkedList<TError> errores = new LinkedList<TError>(); 
-
+    public static LinkedList<TError> errores = new LinkedList<TError>();
+    //public static LinkedList<> = new LinkedList<>
+    public String strExpresion="";
+    public String strOP="";
     //Metodo al que se llama automaticamente ante algun error sintactico
     public void syntax_error(Symbol s)
     {        
@@ -42,6 +44,7 @@ parser code
         errores.add(tmp);
      
     }
+    //HACER UNA LISTA ENLAZA CON NODS PERRONES PARA BOTNER 
 :}
 
 
@@ -52,7 +55,12 @@ non terminal INICIO,CONJUNTO,EXPRESION,PORPOR,LEXEMA, S,A,B,C;
 start with INICIO;
 
 INICIO::=
-    parentesisa CONJUNTO EXPRESION PORPOR LEXEMA parentesisb
+    parentesisa 
+    CONJUNTO 
+    EXPRESION
+    PORPOR 
+    LEXEMA 
+    parentesisb
     {:System.out.println("Fin de analisis de entrada");:}
 ;
 
@@ -61,40 +69,29 @@ CONJUNTO::=
    |conj dpuntos id flecha notacion pcoma CONJUNTO
 ;
 C::= 
-    expresion
-    |expresion por
-    |expresion interrogacion
-    |expresion mas
+    expresion:a {:System.out.println("1------->"+a);:}
+    |expresion:a por:b {:System.out.println("2------->"+a+b);:}
+    |expresion:a interrogacion:b {:System.out.println("3------->"+a+b);:}
+    |expresion:a mas:b {:System.out.println("4------->"+a+b);:}
 
-    |cadena
-    |cadena por
-    |cadena interrogacion
-    |cadena mas
-    
+    |cadena:a {:System.out.println("5------->"+a);:}
+    |cadena:a por:b {:System.out.println("6------->"+a+b);:}
+    |cadena:a interrogacion:b {:System.out.println("7------->"+a+b);:}
+    |cadena:a mas:b {:System.out.println("8------->"+a+b);:}
 ;
-B::=
-    C
-    |C A
-;
-A::=
-    C
-    |C A
-    |or B
-    |punto B
-;
-S::=
-    C
-    |C A
+S::=C
+    |C or:a S {:System.out.println("15------>"+a);:}
+    |C punto:a S {:System.out.println("16------>"+a);:}
+    |C S
 ;
 EXPRESION::=
-    id flecha S pcoma
+    id flecha S:e pcoma {:System.out.println("END------>"+e);:}
     |id flecha S pcoma EXPRESION
 ;
 PORPOR::=
     dosporcentajes
     |dosporcentajes PORPOR
 ;
-
 LEXEMA::=
     id dpuntos cadena pcoma
     |id dpuntos cadena pcoma LEXEMA

@@ -1,0 +1,19 @@
+digraph structs {
+    node [shape=record];
+    struct3 [label="1,2,3,4,5 |{ T/F |{12}| N0}| 5,6,7,8"];
+    struct1 [label=<
+        
+<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4">
+  <TR >
+    <TD ROWSPAN="3">1,2,3,4,5</TD>
+    <TD COLSPAN="3">T/F</TD>
+    <TD ROWSPAN="3">4,5,6</TD>
+  </TR>
+  <TR>
+    <TD BORDER="1" CELLBORDER="0">+</TD>
+  </TR>
+  <TR>
+    <TD COLSPAN="3">10</TD>
+  </TR>
+</TABLE>>]
+}
