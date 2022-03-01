@@ -1,0 +1,8 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "P1_COMPI1_2022/src/analizadores/java-cup-11b.jar",
+        "P1_COMPI1_2022/src/analizadores/java-cup-11b-runtime.jar",
+        "P1_COMPI1_2022/src/analizadores/JFlex.jar"
+    ]
+}

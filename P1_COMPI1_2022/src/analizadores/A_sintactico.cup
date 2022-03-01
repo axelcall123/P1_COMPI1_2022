@@ -69,24 +69,33 @@ CONJUNTO::=
    |conj dpuntos id flecha notacion pcoma CONJUNTO
 ;
 C::= 
-    expresion:a {:System.out.println("1------->"+a);:}
-    |expresion:a por:b {:System.out.println("2------->"+a+b);:}
-    |expresion:a interrogacion:b {:System.out.println("3------->"+a+b);:}
-    |expresion:a mas:b {:System.out.println("4------->"+a+b);:}
-
-    |cadena:a {:System.out.println("5------->"+a);:}
-    |cadena:a por:b {:System.out.println("6------->"+a+b);:}
-    |cadena:a interrogacion:b {:System.out.println("7------->"+a+b);:}
-    |cadena:a mas:b {:System.out.println("8------->"+a+b);:}
+    expresion:a {:strExpresion=a+strExpresion;:}
+    |expresion:a por:b {:strExpresion=b.toString()+a+strExpresion;:}
+    |expresion:a interrogacion:b {:strExpresion=b.toString()+a+strExpresion;:}
+    |expresion:a mas:b {:strExpresion=b.toString()+a+strExpresion;:}
+    |cadena:a {:strExpresion=a+strExpresion;:}
+    |cadena:a por:b {:strExpresion=b.toString()+a+strExpresion;:}
+    |cadena:a interrogacion:b {:strExpresion=b.toString()+a+strExpresion;:}
+    |cadena:a mas:b {:strExpresion=b.toString()+a+strExpresion;:}
+    
 ;
-S::=C
-    |C or:a S {:System.out.println("15------>"+a);:}
-    |C punto:a S {:System.out.println("16------>"+a);:}
-    |C S
+B::=
+    C
+    |C A
+;
+A::=
+    C
+    |C A
+    |or:a B {:strExpresion=a+strExpresion;:}
+    |punto:a B {:strExpresion=a+strExpresion;:}
+;
+S::=
+    C {:System.out.println(strExpresion+"<1--expresion");strExpresion="";:}
+    |C A {:System.out.println(strExpresion+"<2--expresion");strExpresion="";:}
 ;
 EXPRESION::=
-    id flecha S:e pcoma {:System.out.println("END------>"+e);:}
-    |id flecha S pcoma EXPRESION
+    id flecha S pcoma
+    |id flecha S pcoma EXPRESION 
 ;
 PORPOR::=
     dosporcentajes

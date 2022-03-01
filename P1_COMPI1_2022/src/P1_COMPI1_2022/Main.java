@@ -16,6 +16,8 @@ public class Main extends javax.swing.JFrame  {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         jbSiguiente = new javax.swing.JButton();
         jbAnterior = new javax.swing.JButton();
@@ -31,6 +33,10 @@ public class Main extends javax.swing.JFrame  {
         jmAbrir = new javax.swing.JMenuItem();
         jmGuardar = new javax.swing.JMenuItem();
         jmGuardarComo = new javax.swing.JMenuItem();
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,6 +54,11 @@ public class Main extends javax.swing.JFrame  {
         jbAutomata.setBackground(new java.awt.Color(0, 153, 153));
         jbAutomata.setForeground(new java.awt.Color(0, 0, 0));
         jbAutomata.setText("Generar Automata");
+        jbAutomata.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAutomataActionPerformed(evt);
+            }
+        });
 
         jbAnalizador.setBackground(new java.awt.Color(0, 153, 153));
         jbAnalizador.setForeground(new java.awt.Color(0, 0, 0));
@@ -163,10 +174,22 @@ public class Main extends javax.swing.JFrame  {
     }// </editor-fold>//GEN-END:initComponents
     
     private void jbAnalizadorActionPerformed(java.awt.event.ActionEvent evt)  {//GEN-FIRST:event_jbAnalizadorActionPerformed
-        String strEntrada=txtEntrada.getText();
-        String stringToReader = strEntrada;
+
+        char[] ch = txtEntrada.getText().toCharArray();
+        String strOr="";
+        for(int i=0;i< txtEntrada.getText().length()-1;i++){
+            if((ch[i]=='}' | ch[i]=='\"'| ch[i] == '\'' | ch[i]=='*' | ch[i]=='?' | ch[i]=='+') 
+            && (ch[i+1] == '\"' | ch[i + 1] == '\''| ch[i+1] == '{')){
+                strOr= strOr+String.valueOf(ch[i])+"."+String.valueOf(ch[i+1]);
+                i+=1;
+            }else{
+                strOr = strOr + String.valueOf(ch[i]);
+            }
+        }
+        //System.out.println(strOr+"holia com oskl dfjsklafjdskl");
+        String stringToReader = strOr;
         StringReader reader = new StringReader(stringToReader);
-     
+        
         try {
             Analizador_Lexico lexico = new Analizador_Lexico(
                     new BufferedReader(reader));
@@ -184,6 +207,10 @@ public class Main extends javax.swing.JFrame  {
         } 
 
     }//GEN-LAST:event_jbAnalizadorActionPerformed
+
+    private void jbAutomataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAutomataActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbAutomataActionPerformed
 
     /**
      * @param args the command line arguments
@@ -226,6 +253,8 @@ public class Main extends javax.swing.JFrame  {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton jbAnalizador;
     private javax.swing.JButton jbAnterior;
     private javax.swing.JButton jbAutomata;
